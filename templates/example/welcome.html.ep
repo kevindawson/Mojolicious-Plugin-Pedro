@@ -1,10 +1,41 @@
-% layout 'default';
-% title 'Welcome';
-<h2><%= $message %></h2>
-This page was generated from the template
-"templates/example/welcome.html.ep" and the layout
-"templates/layouts/default.html.ep",
-<a href="<%== url_for %>">click here</a>
-to reload the page or
-<a href="/index.html">here</a>
-to move forward to a static page.
+<html>
+<head>
+<title></title>
+<style>
+#editor {
+	position: absolute;
+	width: 400px;
+	height: 200px;
+}
+</style>
+<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="js/ace.js" type="text/javascript"></script>
+<script src="js/theme-eclipse.js" type="text/javascript"></script>
+<script src="js/mode-perl.js" type="text/javascript"></script>
+<script>
+	$(function() {
+		var editor = ace.edit("editor");
+		editor.setTheme("ace/theme/eclipse");
+		//var PerlMode = require("ace/mode/perl").Mode;
+		//editor.getSession().setMode(new PerlMode());
+
+		editor.getSession().doc.on('change', function(e) {
+			var change = e.change;
+		});
+		
+		$("#button").click(function() {
+			var Range = require("ace/range").Range;
+			editor.getSession().addMarker(new Range(0,0,0,2), "ace_active_line","text"); 
+		});
+
+	});
+</script>
+</head>
+<body>
+	<div style="position: relative; height: 250px;">
+		&nbsp;
+		<div id="editor">my @foo = "zzz"</div>
+	</div>
+	<button id="button">Test!</button>
+</body>
+</html>
